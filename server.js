@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const cors = require('cors');
-const ofirebase = require("./firebase/setData");
+const setFirebase = require("./firebase/setData");
+const getFirebase = require("./firebase/getData");
 
 const app = express();
 const port = 3000;
@@ -16,7 +17,7 @@ app.use(cors());
 const budget = require('./budgetData.json');
 console.log(budget);
 
-
+let userRecord = null;
 app.get('/budget', (req, res) => {
   res.json(budget);
 });
@@ -38,7 +39,7 @@ app.post("/createNewUser/", function (req, res) {
       admin.auth().createCustomToken(userRecord.uid)
         .then((customToken) => {
           token = customToken;
-          ofirebase.createNewUser(userRecord);
+          setFirebase.createNewUser(userRecord);
           res.send({
             "tokenID": token
           });
@@ -58,12 +59,16 @@ app.get("/verifyUser/", verifyToken, function (req, res) {
   });
 });
 
-app.get("/getUserInfo/", function (req, res) {
-  ofirebase.getUserInfo(req.params, function (err, data) {
+/*app.get("/getUserInfo/", function (req, res) {
+  setFirebase.getUserInfo(req.params, function (err, data) {
     res.send(data);
   })
-});
-
+});*/
+app.get("/getAllData/", verifyToken, function (req, res) {
+  getFirebase.getUserInfo(req.body.uid.user_id, function (err, data) {
+   res.send(data);
+  })
+})
 
 
 async function verifyToken(req, res, next) {
@@ -72,7 +77,6 @@ async function verifyToken(req, res, next) {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     if (decodedToken) {
       req.body.uid = decodedToken;
-      console.log(decodedToken)
       return next();
 
     } else {
