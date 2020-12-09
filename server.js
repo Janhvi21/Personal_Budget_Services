@@ -58,18 +58,22 @@ app.get("/verifyUser/", verifyToken, function (req, res) {
     "message": "OK"
   });
 });
-
-/*app.get("/getUserInfo/", function (req, res) {
-  setFirebase.getUserInfo(req.params, function (err, data) {
-    res.send(data);
-  })
-});*/
 app.get("/getAllData/", verifyToken, function (req, res) {
   getFirebase.getUserInfo(req.body.uid.user_id, function (err, data) {
-   res.send(data);
+    res.send(data);
+  })
+})
+app.get("/insertCategory/", verifyToken, function (req, res) {
+  setFirebase.insertCategory(req, function (err, data) {
+    res.send(data);
   })
 })
 
+app.get("/deleteCategory/", verifyToken, function (req, res) {
+  setFirebase.deleteCategory(req, function (err, data) {
+    res.send(data);
+  })
+})
 
 async function verifyToken(req, res, next) {
   const idToken = req.query.token;
