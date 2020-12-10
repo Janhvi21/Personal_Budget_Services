@@ -75,6 +75,11 @@ app.get("/deleteCategory/", verifyToken, function (req, res) {
   })
 })
 
+app.get("/insertTransaction/", verifyToken, function (req, res) {
+  setFirebase.insertTransaction(req, function (err, data) {
+    res.send(data);
+  })
+})
 async function verifyToken(req, res, next) {
   const idToken = req.query.token;
   try {
