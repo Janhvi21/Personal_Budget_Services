@@ -86,6 +86,11 @@ app.get("/deleteTransactions/", verifyToken, function (req, res) {
     res.send(data);
   })
 })
+app.get("/addMonthtoDB/", verifyToken, function (req, res) {
+  setFirebase.addMonthtoDB(req, function (err, data) {
+    res.send(data);
+  })
+})
 async function verifyToken(req, res, next) {
   const idToken = req.query.token;
   try {
@@ -95,9 +100,9 @@ async function verifyToken(req, res, next) {
       return next();
 
     } else {
-      return res.status(401).send("You are not authorized!");
+      return res.status(401).send("You are not authorized| error!");
     }
   } catch (e) {
-    return res.status(401).send("You are not authorized!");
+    return res.status(401).send("You are not authorized | error! "+e);
   }
 }
