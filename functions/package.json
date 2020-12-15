@@ -2,7 +2,7 @@
   "name": "Personal_budegt_Design",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
     "chart.js": "^2.9.4",
