@@ -10,8 +10,5 @@
       "**/.*",
       "**/node_modules/**"
     ]
-  },
-  "functions": {
-    "runtime": "nodejs12"
   }
 }
