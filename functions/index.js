@@ -26,9 +26,9 @@ let userRecord = null;
 app.get('/budget', (req, res) => {
     res.json(budget);
 });
-app.get('/', (req, res) => {
-    res.json("Hello World");
-  });
+app.get('/timestamp', (req, res) => {
+    res.json(`${Date.now()}`);
+});
 app.listen(port, () => {
     console.log(`API served at http://localhost:${port}`);
 });
