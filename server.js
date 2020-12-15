@@ -15,7 +15,6 @@ const admin = require('./firebase-admin/admin');
 app.use(cors());
 
 const budget = require('./budgetData.json');
-console.log(budget);
 
 let userRecord = null;
 app.get('/budget', (req, res) => {
@@ -36,8 +35,11 @@ app.post("/createNewUser/", function (req, res) {
       displayName: req.body.username,
       disabled: false,
     }).then((userRecord) => {
-      admin.auth().createCustomToken(userRecord.uid)
+      admin.auth().createCustomToken(userRecord.uid, {
+          expiresAt: Date.now() + (1000 * 60)
+        })
         .then((customToken) => {
+
           token = customToken;
           setFirebase.createNewUser(userRecord);
           res.send({
@@ -103,6 +105,6 @@ async function verifyToken(req, res, next) {
       return res.status(401).send("You are not authorized| error!");
     }
   } catch (e) {
-    return res.status(401).send("You are not authorized | error! "+e);
+    return res.status(401).send("You are not authorized | error! " + e);
   }
 }
