@@ -15,12 +15,8 @@ app.use(bodyParser.urlencoded({
 const admin = require('./firebase-admin/admin');
 app.use(cors());
 
-const budget = require('./budgetData.json');
 
 let userRecord = null;
-app.get('/budget', (req, res) => {
-  res.json(budget);
-});
 
 app.listen(port, () => {
   console.log(`API served at http://localhost:${port}`);

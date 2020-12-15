@@ -6,7 +6,5 @@ module.exports = {
         return firebase.database().ref('/users/' + userId).once('value').then((snapshot) => {
             callback(null, snapshot.val())
         });
-
-
     }
 }
