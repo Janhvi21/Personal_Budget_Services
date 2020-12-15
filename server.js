@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+
 const admin = require('./firebase-admin/admin');
 app.use(cors());
 
