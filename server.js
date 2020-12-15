@@ -21,7 +21,9 @@ let userRecord = null;
 app.listen(port, () => {
   console.log(`API served at http://localhost:${port}`);
 });
-
+app.get("/budget/", function (req, res) {
+  res.send("Budget is working");
+});
 
 app.post("/createNewUser/", function (req, res) {
   let token = "";
