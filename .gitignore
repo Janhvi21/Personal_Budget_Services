@@ -1,5 +1,1 @@
-.env
-budgetData.json
-/config
-/node_modules
-/firebase/firebase_connect.js
+functions/node_modules
